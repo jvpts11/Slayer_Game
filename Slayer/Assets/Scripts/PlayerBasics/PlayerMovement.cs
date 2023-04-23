@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode jumpkey = KeyCode.Space;
 
     bool isGrounded;
-    bool readyToJump = true;
+    bool readyToJump;
 
     float horizontal;
     float vertical;
@@ -37,16 +37,17 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        ResetJump();
     }
 
     
     void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight + 0.2f, whatIsGround);
 
         PlayerInput();
-        CheckIsGrounded(isGrounded);
         SpeedControl();
+        CheckIsGrounded(isGrounded);
     }
 
     private void FixedUpdate()
