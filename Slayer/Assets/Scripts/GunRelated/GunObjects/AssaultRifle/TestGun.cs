@@ -30,9 +30,8 @@ public class TestGun : MonoBehaviour
         if(gunData.currentAmmo > 0) { 
             if(CanShoot())
             {
-                if (Physics.Raycast(muzzle.position, transform.forward, out RaycastHit hitInfo, gunData.maxDistance))
+                if (Physics.Raycast(muzzle.position, muzzle.forward, out RaycastHit hitInfo, gunData.maxDistance))
                 {
-                    Debug.Log("Hit");
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     
                     damageable?.Damage(gunData.damage);

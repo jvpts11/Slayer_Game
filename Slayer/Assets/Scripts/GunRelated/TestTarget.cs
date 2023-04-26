@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class TestTarget : AbstractEnemy, IDamageable
 {
+
     private void Start()
     {
-        health = 100;
+        health = 100f;
     }
 
     public void Damage(float damage)
