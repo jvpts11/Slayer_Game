@@ -6,18 +6,21 @@ using UnityEngine;
 
 public class TestGun : MonoBehaviour
 {
-    [SerializeField] GunData gunData;
+    [SerializeField] private GunData gunData;
+    [SerializeField] private Transform muzzle;
 
     float timeSinceLastShot;
 
     private void Start()
     {
         PlayerShoot.shootInput += Shoot;
+        PlayerShoot.reloadInput += StartReload;
     }
 
     private void Update()
     {
         timeSinceLastShot += Time.deltaTime;
+        Debug.DrawRay(muzzle.position, muzzle.forward);
     }
 
     private bool CanShoot() => !gunData.isRealoading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
@@ -27,9 +30,12 @@ public class TestGun : MonoBehaviour
         if(gunData.currentAmmo > 0) { 
             if(CanShoot())
             {
-                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, gunData.maxDistance))
+                if (Physics.Raycast(muzzle.position, transform.forward, out RaycastHit hitInfo, gunData.maxDistance))
                 {
-                    Debug.Log(hitInfo.transform.name);
+                    Debug.Log("Hit");
+                    IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
+                    
+                    damageable?.Damage(gunData.damage);
                 }
 
                 gunData.currentAmmo--;
@@ -39,8 +45,24 @@ public class TestGun : MonoBehaviour
         }
     }
 
+    public void StartReload()
+    {
+        if(!gunData.isRealoading)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
     private void OnGunShot()
     {
         
+    }
+
+    private IEnumerator Reload()
+    {
+        gunData.isRealoading = true;
+        yield return new WaitForSeconds(gunData.reloadTime);
+        gunData.currentAmmo = gunData.magSize;
+        gunData.isRealoading = false;
     }
 }
