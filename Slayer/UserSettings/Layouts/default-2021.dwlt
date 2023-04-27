@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 7}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 130
+  controlID: 17
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 454
     height: 939
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 106
+  controlID: 24
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 107
+  controlID: 110
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -374,22 +374,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Materials/Test Material
+    - Assets/Scripts/GunRelated
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Materials/Test Material
+  - Assets/Scripts/GunRelated
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Jota\Documents\GitHub\Slayer_Game\Slayer
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 16630000
-    m_LastClickedID: 25366
-    m_ExpandedIDs: 00000000d65800003859000000ca9a3bffffff7f
+    m_SelectedIDs: 4a5a0000
+    m_LastClickedID: 23114
+    m_ExpandedIDs: 00000000e258000044590000485900004c5900004a5a0000565a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -417,7 +417,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d6580000
+    m_ExpandedIDs: 00000000e2580000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -547,9 +547,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 04f2ffff5cf2ffffaef2fffffaf2ffff4cf3ffff7ef4ffff48f6ffff8cf7ffffe4f7ffff30f8ffff7cf8ffffc8f8ffff92f9ffffdef9ffff36faffff38fbffff
+      m_SelectedIDs: ec590000
+      m_LastClickedID: 23020
+      m_ExpandedIDs: 48b7ffff14f9ffff38fbffffbc590000ec590000245a0000385a0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -832,9 +832,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -30.998405, y: -19.37939, z: 94.395}
+    m_Target: {x: -2.1496482, y: 0.5598817, z: 1.0043843}
     speed: 2
-    m_Value: {x: -30.998405, y: -19.37939, z: 94.395}
+    m_Value: {x: -2.1496482, y: 0.5598817, z: 1.0043843}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -881,13 +881,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.14306192, y: 0.07740576, z: -0.011223999, w: -0.9866078}
+    m_Target: {x: 0.068565264, y: -0.7263665, z: 0.07324649, w: 0.67994136}
     speed: 2
-    m_Value: {x: -0.14158332, y: 0.07742331, z: -0.011107998, w: -0.98683155}
+    m_Value: {x: 0.06856544, y: -0.72636837, z: 0.07324667, w: 0.6799431}
   m_Size:
-    m_Target: 143.6929
+    m_Target: 2.5610805
     speed: 2
-    m_Value: 143.6929
+    m_Value: 2.5610805
   m_Ortho:
     m_Target: 0
     speed: 2

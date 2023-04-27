@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEditor.Search;
 using UnityEngine;
 
-public class TestGun : MonoBehaviour
+public class Gun : MonoBehaviour
 {
     [SerializeField] private GunData gunData;
-    [SerializeField] private Transform muzzle;
+    [SerializeField] private Transform cam;
 
     float timeSinceLastShot;
 
@@ -20,8 +20,10 @@ public class TestGun : MonoBehaviour
     private void Update()
     {
         timeSinceLastShot += Time.deltaTime;
-        Debug.DrawRay(muzzle.position, muzzle.forward);
+        Debug.DrawRay(cam.position, cam.forward * gunData.maxDistance);
     }
+
+    private void OnDisable() => gunData.isRealoading = false;
 
     private bool CanShoot() => !gunData.isRealoading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
 
@@ -30,7 +32,7 @@ public class TestGun : MonoBehaviour
         if(gunData.currentAmmo > 0) { 
             if(CanShoot())
             {
-                if (Physics.Raycast(muzzle.position, muzzle.forward, out RaycastHit hitInfo, gunData.maxDistance))
+                if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, gunData.maxDistance))
                 {
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     
@@ -46,7 +48,7 @@ public class TestGun : MonoBehaviour
 
     public void StartReload()
     {
-        if(!gunData.isRealoading)
+        if(!gunData.isRealoading && this.gameObject.activeSelf)
         {
             StartCoroutine(Reload());
         }
