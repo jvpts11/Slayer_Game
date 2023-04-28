@@ -23,7 +23,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("KeyBinds")]
     public KeyCode jumpkey = KeyCode.Space;
 
-    bool isGrounded;
+    [HideInInspector]
+    public bool isGrounded;
     bool readyToJump;
 
     float horizontal;

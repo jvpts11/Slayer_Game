@@ -16,6 +16,9 @@ public class Gun : MonoBehaviour
     public CamShake cameraShaker;
     public TextMeshProUGUI bulletsText;
 
+    
+    //[SerializeField] private AudioSource audioSource;
+
     private void Awake()
     {
         gunData.currentAmmo = gunData.magSize;
@@ -25,6 +28,7 @@ public class Gun : MonoBehaviour
     {
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
+        //audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -52,7 +56,8 @@ public class Gun : MonoBehaviour
 
                 StartCoroutine(cameraShaker.Shake(gunData.camShakeDuration, gunData.camShakeMagnitude));
 
-                FindObjectOfType<AudioManager>().Play("PistolSound");
+                //audioSource.Play();
+                FindObjectOfType<AudioManager>().PlayAudio("PistolSound");
 
                 if (Physics.Raycast(cam.position, direction, out RaycastHit hitInfo, gunData.maxDistance))
                 {
