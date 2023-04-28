@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Search;
 using UnityEngine;
 
@@ -10,6 +11,15 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform cam;
 
     float timeSinceLastShot;
+
+    public LayerMask whatIsEnemy;
+    public CamShake cameraShaker;
+    public TextMeshProUGUI bulletsText;
+
+    private void Awake()
+    {
+        gunData.currentAmmo = gunData.magSize;
+    }
 
     private void Start()
     {
@@ -21,6 +31,7 @@ public class Gun : MonoBehaviour
     {
         timeSinceLastShot += Time.deltaTime;
         Debug.DrawRay(cam.position, cam.forward * gunData.maxDistance);
+        bulletsText.SetText("Ammo: " + gunData.magSize + " / " + gunData.currentAmmo);
     }
 
     private void OnDisable() => gunData.isRealoading = false;
@@ -32,7 +43,18 @@ public class Gun : MonoBehaviour
         if(gunData.currentAmmo > 0) { 
             if(CanShoot())
             {
-                if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo, gunData.maxDistance))
+                float spreadX = UnityEngine.Random.Range(-gunData.bulletSpread, gunData.bulletSpread);
+                float spreadY = UnityEngine.Random.Range(-gunData.bulletSpread, gunData.bulletSpread);
+
+                Vector3 direction = cam.forward + new Vector3(spreadX, spreadY, 0);
+
+                Debug.Log(gunData.currentAmmo);
+
+                StartCoroutine(cameraShaker.Shake(gunData.camShakeDuration, gunData.camShakeMagnitude));
+
+                FindObjectOfType<AudioManager>().Play("PistolSound");
+
+                if (Physics.Raycast(cam.position, direction, out RaycastHit hitInfo, gunData.maxDistance))
                 {
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     

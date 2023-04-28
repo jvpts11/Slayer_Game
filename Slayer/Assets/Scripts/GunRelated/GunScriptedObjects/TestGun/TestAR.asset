@@ -15,8 +15,12 @@ MonoBehaviour:
   name: Test AR
   damage: 22
   maxDistance: 200
-  currentAmmo: 31
+  bulletSpread: 0.02
+  camShakeDuration: 0.05
+  camShakeMagnitude: 0.1
+  currentAmmo: 27
   magSize: 31
   fireRate: 600
   reloadTime: 1.5
   isRealoading: 0
+  allowButtonShot: 0

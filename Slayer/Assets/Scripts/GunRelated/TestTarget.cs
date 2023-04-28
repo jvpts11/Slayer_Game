@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestTarget : AbstractEnemy, IDamageable
+public class TestTarget : MonoBehaviour, IDamageable
 {
 
-    private void Start()
-    {
-        health = 100f;
-    }
+    float health = 100f;
 
     public void Damage(float damage)
     {

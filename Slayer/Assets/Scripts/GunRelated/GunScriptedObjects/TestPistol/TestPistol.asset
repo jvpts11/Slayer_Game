@@ -15,8 +15,12 @@ MonoBehaviour:
   name: 
   damage: 16
   maxDistance: 100
-  currentAmmo: 15
+  bulletSpread: 0.02
+  camShakeDuration: 0.3
+  camShakeMagnitude: 0.3
+  currentAmmo: 18
   magSize: 18
   fireRate: 200
   reloadTime: 1
   isRealoading: 0
+  allowButtonShot: 0

@@ -8,9 +8,7 @@ public class WeaponSway : MonoBehaviour
     [SerializeField] private float smooth;
     [SerializeField] private float swayMultiplier;
 
-    Quaternion rotationX;
-    Quaternion rotationY;
-    Quaternion targetRotation;
+    Quaternion rotationX, rotationY, targetRotation;
 
     private void Update()
     {

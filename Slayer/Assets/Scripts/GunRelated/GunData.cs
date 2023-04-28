@@ -11,6 +11,11 @@ public class GunData : ScriptableObject
     [Header("Shooting")]
     public float damage;
     public float maxDistance;
+    public float bulletSpread;
+
+    [Header("Camera Shake")]
+    public float camShakeDuration;
+    public float camShakeMagnitude;
 
     [Header("Reloading")]
     public int currentAmmo;
@@ -20,5 +25,5 @@ public class GunData : ScriptableObject
 
     [HideInInspector]
     public bool isRealoading;
-    
+    public bool allowButtonShot;
 }
