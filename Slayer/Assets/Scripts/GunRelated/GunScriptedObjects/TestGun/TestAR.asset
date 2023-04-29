@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: TestAR
   m_EditorClassIdentifier: 
   name: Test AR
+  soundName: RifleSound
   damage: 22
   maxDistance: 200
   bulletSpread: 0.02
+  shootForce: 70
+  upwardForce: 7
+  recoilForce: 2.5
   camShakeDuration: 0.05
   camShakeMagnitude: 0.1
-  currentAmmo: 27
+  currentAmmo: 0
   magSize: 31
   fireRate: 600
   reloadTime: 1.5

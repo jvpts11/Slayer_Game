@@ -7,6 +7,11 @@ public class CamShake : MonoBehaviour
 {
     public IEnumerator Shake(float duration, float magnitude )
     {
+        if (!gameObject.activeSelf)
+        {
+            yield break;
+        }
+
         Vector3 originalPos = transform.localPosition;
 
         float elapsedTime = 0.0f;

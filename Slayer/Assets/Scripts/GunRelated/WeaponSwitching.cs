@@ -39,6 +39,8 @@ public class WeaponSwitching : MonoBehaviour
         timeSinceLastSwitch += Time.deltaTime;
     }
 
+    public bool isSwitching() => timeSinceLastSwitch != 0;
+
     private void SetWeapons()
     {
         weapons = new Transform[transform.childCount];

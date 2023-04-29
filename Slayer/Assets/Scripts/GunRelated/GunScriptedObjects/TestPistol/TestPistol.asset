@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b8aec2f32599c2498bd6bd6a65c468b, type: 3}
   m_Name: TestPistol
   m_EditorClassIdentifier: 
-  name: 
+  name: TestPistol
+  soundName: PistolSound
   damage: 16
   maxDistance: 100
   bulletSpread: 0.02
-  camShakeDuration: 0.3
-  camShakeMagnitude: 0.3
+  shootForce: 100
+  upwardForce: 5
+  recoilForce: 1
+  camShakeDuration: 0.025
+  camShakeMagnitude: 0.25
   currentAmmo: 18
   magSize: 18
   fireRate: 200

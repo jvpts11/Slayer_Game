@@ -7,11 +7,17 @@ public class GunData : ScriptableObject
 {
     [Header("Info")]
     public new string name;
+    public string soundName;
 
     [Header("Shooting")]
     public float damage;
     public float maxDistance;
     public float bulletSpread;
+
+    [Header("Bullet")]
+    public float shootForce;
+    public float upwardForce;
+    public float recoilForce;
 
     [Header("Camera Shake")]
     public float camShakeDuration;

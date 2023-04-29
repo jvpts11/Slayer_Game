@@ -7,8 +7,13 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    
     [SerializeField] private GunData gunData;
     [SerializeField] private Transform cam;
+    [SerializeField] private Transform muzzle;
+    [SerializeField] public GameObject bullet;
+    [SerializeField] public Rigidbody playerRB;
+    [SerializeField] public Camera targetCamera;
 
     float timeSinceLastShot;
 
@@ -16,8 +21,7 @@ public class Gun : MonoBehaviour
     public CamShake cameraShaker;
     public TextMeshProUGUI bulletsText;
 
-    
-    //[SerializeField] private AudioSource audioSource;
+    private GameObject currentBullet;
 
     private void Awake()
     {
@@ -28,7 +32,6 @@ public class Gun : MonoBehaviour
     {
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
-        //audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -47,17 +50,19 @@ public class Gun : MonoBehaviour
         if(gunData.currentAmmo > 0) { 
             if(CanShoot())
             {
+                if (!gameObject.activeSelf) return;
+                Vector3 bulletDirectionWithoutSpread = BulletDirection();
+
                 float spreadX = UnityEngine.Random.Range(-gunData.bulletSpread, gunData.bulletSpread);
                 float spreadY = UnityEngine.Random.Range(-gunData.bulletSpread, gunData.bulletSpread);
+
+                Vector3 bulletDirectionWithSpread = bulletDirectionWithoutSpread + new Vector3(spreadY, spreadX, 0);
 
                 Vector3 direction = cam.forward + new Vector3(spreadX, spreadY, 0);
 
                 Debug.Log(gunData.currentAmmo);
-
-                StartCoroutine(cameraShaker.Shake(gunData.camShakeDuration, gunData.camShakeMagnitude));
-
-                //audioSource.Play();
-                FindObjectOfType<AudioManager>().PlayAudio("PistolSound");
+                AudioManager.Instance.PlaySFX(gunData.soundName);
+                Bullet(bulletDirectionWithSpread);
 
                 if (Physics.Raycast(cam.position, direction, out RaycastHit hitInfo, gunData.maxDistance))
                 {
@@ -68,6 +73,7 @@ public class Gun : MonoBehaviour
 
                 gunData.currentAmmo--;
                 timeSinceLastShot = 0;
+                ApplyRecoil(bulletDirectionWithSpread);
                 OnGunShot();
             }
         }
@@ -83,7 +89,7 @@ public class Gun : MonoBehaviour
 
     private void OnGunShot()
     {
-        
+        if (gameObject.activeSelf) StartCoroutine(cameraShaker.Shake(gunData.camShakeDuration, gunData.camShakeMagnitude));
     }
 
     private IEnumerator Reload()
@@ -92,5 +98,46 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(gunData.reloadTime);
         gunData.currentAmmo = gunData.magSize;
         gunData.isRealoading = false;
+    }
+
+    private void Bullet(Vector3 directionWithSpread)
+    {
+        Vector3 muzzlePosition = muzzle.position;
+
+        GameObject currentBullet = Instantiate(bullet, muzzle.position, Quaternion.identity);
+        currentBullet.transform.forward = directionWithSpread.normalized;
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.shootForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.upwardForce, ForceMode.Impulse);
+
+        StartCoroutine(DestroyBullet(currentBullet, muzzlePosition));
+
+    }
+
+    private IEnumerator DestroyBullet(GameObject bullet, Vector3 startPosition)
+    {
+        while (Vector3.Distance(startPosition, bullet.transform.position) < gunData.maxDistance)
+        {
+            yield return null;
+        }
+
+        Destroy(bullet);
+    }
+
+    private void ApplyRecoil(Vector3 directionWithSpread)
+    {
+        playerRB.AddForce(-directionWithSpread.normalized * gunData.recoilForce, ForceMode.Impulse);
+    }
+
+    private Vector3 BulletDirection()
+    {
+        Ray ray = targetCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        RaycastHit hit;
+        Vector3 targetPoint;
+        if (Physics.Raycast(ray, out hit))
+            targetPoint = hit.point;
+        else
+            targetPoint = ray.GetPoint(75);
+        Vector3 directionWithoutSpread = targetPoint - muzzle.position;
+        return directionWithoutSpread;
     }
 }
