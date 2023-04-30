@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -11,24 +8,25 @@ public class Gun : MonoBehaviour
     [SerializeField] private GunData gunData;
     [SerializeField] private Transform cam;
     [SerializeField] private Transform muzzle;
-    [SerializeField] public GameObject bullet;
-    [SerializeField] public Rigidbody playerRB;
-    [SerializeField] public Camera targetCamera;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Rigidbody playerRB;
+    [SerializeField] private Camera targetCamera;
 
     float timeSinceLastShot;
 
     public LayerMask whatIsEnemy;
     public CamShake cameraShaker;
     public TextMeshProUGUI bulletsText;
+    public TextMeshProUGUI gunName;
 
-    private GameObject currentBullet;
+    public static Gun Instance;
 
     private void Awake()
     {
         gunData.currentAmmo = gunData.magSize;
     }
 
-    private void Start()
+    private void OnEnable()
     {
         PlayerShoot.shootInput += Shoot;
         PlayerShoot.reloadInput += StartReload;
@@ -38,19 +36,24 @@ public class Gun : MonoBehaviour
     {
         timeSinceLastShot += Time.deltaTime;
         Debug.DrawRay(cam.position, cam.forward * gunData.maxDistance);
+        gunName.SetText(gunData.name);
         bulletsText.SetText("Ammo: " + gunData.magSize + " / " + gunData.currentAmmo);
     }
 
-    private void OnDisable() => gunData.isRealoading = false;
+    private void OnDisable()
+    {
+        PlayerShoot.shootInput -= Shoot;
+        PlayerShoot.reloadInput -= StartReload;
+    }
 
-    private bool CanShoot() => !gunData.isRealoading && timeSinceLastShot > 1f / (gunData.fireRate / 60f);
+    private bool CanShoot() => !gunData.isRealoading && timeSinceLastShot > 1f / (gunData.fireRate / 60f) && !PauseMenuScript.isPaused;
 
     public void Shoot()
     {
         if(gunData.currentAmmo > 0) { 
             if(CanShoot())
             {
-                if (!gameObject.activeSelf) return;
+                if (!gameObject.activeSelf) return;                
                 Vector3 bulletDirectionWithoutSpread = BulletDirection();
 
                 float spreadX = UnityEngine.Random.Range(-gunData.bulletSpread, gunData.bulletSpread);
@@ -106,10 +109,10 @@ public class Gun : MonoBehaviour
 
         GameObject currentBullet = Instantiate(bullet, muzzle.position, Quaternion.identity);
         currentBullet.transform.forward = directionWithSpread.normalized;
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.shootForce, ForceMode.Impulse);
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.upwardForce, ForceMode.Impulse);
 
-        StartCoroutine(DestroyBullet(currentBullet, muzzlePosition));
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * gunData.shootForce, ForceMode.Impulse);
+
+        //StartCoroutine(DestroyBullet(currentBullet, muzzlePosition));
 
     }
 
