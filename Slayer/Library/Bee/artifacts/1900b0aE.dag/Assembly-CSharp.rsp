@@ -355,7 +355,7 @@
 "Assets/Scripts/AudioRelated/Sound.cs"
 "Assets/Scripts/EnemyRelated/AbstractEnemy.cs"
 "Assets/Scripts/EnemyRelated/TestEnemy.cs"
-"Assets/Scripts/GunRelated/DestroyBullet.cs"
+"Assets/Scripts/GunRelated/Bullet.cs"
 "Assets/Scripts/GunRelated/Gun.cs"
 "Assets/Scripts/GunRelated/GunData.cs"
 "Assets/Scripts/GunRelated/TestTarget.cs"

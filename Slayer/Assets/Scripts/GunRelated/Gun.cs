@@ -67,13 +67,14 @@ public class Gun : MonoBehaviour
                 AudioManager.Instance.PlaySFX(gunData.soundName);
                 Bullet(bulletDirectionWithSpread);
 
+                /*
                 if (Physics.Raycast(cam.position, direction, out RaycastHit hitInfo, gunData.maxDistance))
                 {
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     
                     damageable?.Damage(gunData.damage);
                 }
-
+                */
                 gunData.currentAmmo--;
                 timeSinceLastShot = 0;
                 ApplyRecoil(bulletDirectionWithSpread);
