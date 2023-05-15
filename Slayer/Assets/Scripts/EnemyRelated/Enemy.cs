@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour, IDamageable
     bool walkPointSet;
     public float walkPointRange;
 
+    public float health;
+
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
@@ -71,7 +73,7 @@ public class Enemy : MonoBehaviour, IDamageable
         transform.LookAt(player);
         if (!alreadyAttacked)
         {
-            GameObject currentBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            EnemyBullet();
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
@@ -79,8 +81,32 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void ResetAttack() => alreadyAttacked = false;
 
+    private void EnemyBullet()
+    {
+        /*
+         GameObject currentBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+        currentBullet.transform.forward = transform.forward;
+        
+        currentBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 32f, ForceMode.Impulse);
+         
+         */
+
+        Rigidbody rb = Instantiate(bullet,transform.position,Quaternion.identity).GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
+        
+    }
+
+    private void DestroyEnemy()
+    {
+        Destroy(this.gameObject);
+    }
+
     public void Damage(float damage)
     {
-        
+        health -= damage;
+        if(health <= 0)
+        {
+            DestroyEnemy();
+        }
     }
 }

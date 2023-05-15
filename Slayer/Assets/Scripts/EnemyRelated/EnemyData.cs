@@ -33,6 +33,10 @@ public class EnemyData : ScriptableObject
 
     [Header("Positioning Info")]
     public Vector3 walkPoint;
-    bool walkPointSet;
+    public bool walkPointSet;
     public float walkPointRange;
+
+    [Header("Layer Masks")]
+    public LayerMask whatIsGround;
+    public LayerMask whatIsPlayer;
 }
