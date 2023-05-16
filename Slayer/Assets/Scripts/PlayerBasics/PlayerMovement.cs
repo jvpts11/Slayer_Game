@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamageable
 {
     [Header("Movement")]
     public float moveSpeed;
@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Misc")]
     public float playerHeight;
+    public float playerHealth;
 
     [Header("KeyBinds")]
     public KeyCode jumpkey = KeyCode.Space;
@@ -117,5 +118,14 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    public void Damage(float damage)
+    {
+        playerHealth -= damage;
+        if(playerHealth <= 0) {
+            Destroy(this.gameObject);
+            
+        }
     }
 }

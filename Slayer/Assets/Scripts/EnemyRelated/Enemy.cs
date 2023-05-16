@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour, IDamageable
         health -= damage;
         if(health <= 0)
         {
-            DestroyEnemy();
+            Invoke(nameof(DestroyEnemy), 0.5f);
         }
     }
 }
