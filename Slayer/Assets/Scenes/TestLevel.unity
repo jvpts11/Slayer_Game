@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &2766587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3989649711924186982, guid: 3291a80c01f878745a6303fa4268438d, type: 3}
+  m_PrefabInstance: {fileID: 1583766124}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &16746729
 GameObject:
   m_ObjectHideFlags: 0
@@ -20656,7 +20661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: BaseMenu
-  obj: {fileID: 0}
+  obj: {fileID: 2766587}
   layerMask:
     serializedVersion: 2
     m_Bits: 512
@@ -30174,7 +30179,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-126876
+  m_Name: pb_Mesh25444
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
