@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +11,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public NavMeshAgent agent;
     public Transform player;
     public GameObject bullet;
+    public Transform muzzle;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -91,9 +94,10 @@ public class Enemy : MonoBehaviour, IDamageable
          
          */
 
-        Rigidbody rb = Instantiate(bullet,transform.position,Quaternion.identity).GetComponent<Rigidbody>();
+        Rigidbody rb = Instantiate(bullet,muzzle.transform.position,Quaternion.identity).GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-        
+
+        Destroy(rb, 2f);
     }
 
     private void DestroyEnemy()
