@@ -359,6 +359,7 @@
 "Assets/Scripts/EnemyRelated/Enemy.cs"
 "Assets/Scripts/EnemyRelated/EnemyData.cs"
 "Assets/Scripts/EnemyRelated/Spawner.cs"
+"Assets/Scripts/EnemyRelated/Wave.cs"
 "Assets/Scripts/GunRelated/Bullet.cs"
 "Assets/Scripts/GunRelated/Gun.cs"
 "Assets/Scripts/GunRelated/GunData.cs"

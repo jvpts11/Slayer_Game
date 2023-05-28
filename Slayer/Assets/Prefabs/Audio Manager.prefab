@@ -308,5 +308,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 69d0f77b228c40540b770782c07d713b, type: 3}
   - name: PistolSound
     clip: {fileID: 8300000, guid: 1c468e588ba6e044c893049bcc5fd7d7, type: 3}
+  - name: PlayerHurtSound
+    clip: {fileID: 8300000, guid: dd6a910ef50a5bc47abfd298fc0ad462, type: 3}
   musicSource: {fileID: 383776795497640460}
   sfxSource: {fileID: 383776794931366885}

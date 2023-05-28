@@ -19,7 +19,9 @@ public class Enemy : MonoBehaviour, IDamageable
     bool walkPointSet;
     public float walkPointRange;
 
-    public float health;
+    public float health = 100f;
+
+    private Spawner spawner;
 
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -41,6 +43,12 @@ public class Enemy : MonoBehaviour, IDamageable
         if (!playerInSightRange && !playerInAttackRange) Patrolling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
+    }
+
+    public void InitializeEnemy(float health, Spawner spawner)
+    {
+        this.health = health;
+        this.spawner = spawner;
     }
 
     private void Patrolling()
@@ -111,6 +119,7 @@ public class Enemy : MonoBehaviour, IDamageable
         if(health <= 0)
         {
             Invoke(nameof(DestroyEnemy), 0.5f);
+            spawner.NotifyDeath();
         }
     }
 }

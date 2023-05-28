@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     [Header("Misc")]
     public float playerHeight;
     public float playerHealth;
+    public string hurtSoundEffect;
 
     [Header("KeyBinds")]
     public KeyCode jumpkey = KeyCode.Space;
@@ -123,9 +124,9 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     public void Damage(float damage)
     {
         playerHealth -= damage;
+        AudioManager.Instance.PlaySFX(hurtSoundEffect);
         if(playerHealth <= 0) {
             Destroy(this.gameObject);
-            
         }
     }
 }
