@@ -210,8 +210,8 @@ MonoBehaviour:
   walkPointRange: 5
   health: 100
   timeBetweenAttacks: 0.5
-  sightRange: 50
-  attackRange: 50
+  sightRange: 20
+  attackRange: 10
   playerInSightRange: 0
   playerInAttackRange: 0
 --- !u!1 &6679446856388371422

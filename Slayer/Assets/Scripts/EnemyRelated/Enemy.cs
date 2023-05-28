@@ -108,17 +108,13 @@ public class Enemy : MonoBehaviour, IDamageable
         Destroy(rb, 2f);
     }
 
-    private void DestroyEnemy()
-    {
-        Destroy(this.gameObject);
-    }
-
     public void Damage(float damage)
     {
         health -= damage;
         if(health <= 0)
         {
-            Invoke(nameof(DestroyEnemy), 0.5f);
+            //Invoke(nameof(DestroyEnemy), 0.5f);
+            Destroy(transform.parent.gameObject);
             spawner.NotifyDeath();
         }
     }

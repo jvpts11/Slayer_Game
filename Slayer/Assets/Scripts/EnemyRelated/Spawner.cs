@@ -18,11 +18,12 @@ public class Spawner : MonoBehaviour
 
     private Wave wave;
 
-    public float startingTime;
+    public float spawnFrequency;
 
 
     void Start()
     {
+        timeBetweenSpawns = spawnFrequency;
         currentEnemies = 0;
         wave = new Wave(1, enemyHealth, initialEnemyNumber);
     }
@@ -43,13 +44,13 @@ public class Spawner : MonoBehaviour
 
     private void ResetTime()
     {
-        timeBetweenSpawns = 1f;
+        timeBetweenSpawns = spawnFrequency;
     }
 
     public void NotifyDeath()
     {
         enemiesKilled++;
-        if(enemiesKilled == wave.maxEnemyNum)
+        if(enemiesKilled >= wave.maxEnemyNum)
         {
             wave.waveNum++;
             wave.maxEnemyNum += enemyInscreseNumber;
