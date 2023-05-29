@@ -37,8 +37,16 @@ public class PlayerMovement : MonoBehaviour, IDamageable
 
     Rigidbody rb;
 
-    public static PlayerMovement instance;
-    
+    public static PlayerMovement Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(this);
+        else
+            Instance = this;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -46,7 +54,6 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         ResetJump();
         playerDied = false;
     }
-
     
     void Update()
     {

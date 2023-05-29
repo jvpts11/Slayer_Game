@@ -10,7 +10,7 @@ public class Level : MonoBehaviour
     public static Level Instance;
 
     float startingTime = 90f;
-    public static float currentTime = 0f;
+    public float currentTime = 0f;
 
     public KeyCode startLevelKey;
 
@@ -32,22 +32,33 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        currentTime = startingTime;
+        gameStarted = false;
     }
 
     private void Update()
     {
-        if (Input.GetKey(startLevelKey))
+        /*
+        if (Input.GetKeyUp(startLevelKey))
         {
-            if(PlayerMovement.instance.playerDied != true)
-            {
-                gameStarted = true;
-                currentTime -= Time.deltaTime;
-            }
-            else
-            {
-                currentTime = startingTime;
-            }
+            gameStarted = true;
+            currentTime -= Time.deltaTime;
         }
+        */
+
+        if(!PlayerMovement.Instance.playerDied && Input.GetKeyDown(startLevelKey) && !gameStarted)
+        {
+            StartTimer();
+        }
+        
+        if(gameStarted)
+        {
+            currentTime -= Time.deltaTime;
+        }
+    }
+
+    private void StartTimer()
+    {
+        gameStarted = true;
+        currentTime = startingTime;
     }
 }
