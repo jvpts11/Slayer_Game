@@ -30,15 +30,22 @@ public class Spawner : MonoBehaviour , IDoNothing
 
     void Update()
     {
-        timeBetweenSpawns -= Time.deltaTime;
-        Debug.Log(wave.maxEnemyNum);
-        if(currentEnemies <= wave.maxEnemyNum)
+        if (Level.Instance.gameStarted != false)
         {
-            if (timeBetweenSpawns <= 0)
+            timeBetweenSpawns -= Time.deltaTime;
+            Debug.Log(wave.maxEnemyNum);
+            if(currentEnemies <= wave.maxEnemyNum)
             {
-                InstantiateEnemy();
-                ResetTime();
+                if (timeBetweenSpawns <= 0)
+                {
+                    InstantiateEnemy();
+                    ResetTime();
+                }
             }
+        }
+        else
+        {
+            DoNothing();
         }
     }
 

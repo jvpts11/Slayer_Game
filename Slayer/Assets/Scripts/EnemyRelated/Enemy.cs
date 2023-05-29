@@ -8,26 +8,35 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
+    [Header("Transforms and references")]
     public NavMeshAgent agent;
     public Transform player;
     public GameObject bullet;
     public Transform muzzle;
 
+
+    [Header("Layer Masks")]
     public LayerMask whatIsGround, whatIsPlayer;
 
+    [Header("Walkpoint")]
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
 
+    [Header("Health")]
     public float health = 100f;
 
     private Spawner spawner;
 
+    [Header("Attack")]
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
+    [Header("Misc")]
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+
+    public static Enemy Instance;
 
     private void Awake()
     {
@@ -80,7 +89,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void AttackPlayer()
     {
-        agent.SetDestination(transform.position);
+        //agent.SetDestination(transform.position);
         transform.LookAt(player);
         if (!alreadyAttacked)
         {
@@ -106,6 +115,14 @@ public class Enemy : MonoBehaviour, IDamageable
         rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
 
         Destroy(rb, 2f);
+    }
+
+    private void KillAllEnemies()
+    {
+        foreach (Enemy e in FindObjectsOfType<Enemy>())
+        {
+            Destroy(e);
+        }
     }
 
     public void Damage(float damage)

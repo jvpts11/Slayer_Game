@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour, IDamageable
 
     Vector3 dir;
 
+    public HealthBar healthBar;
+
     Rigidbody rb;
 
     public static PlayerMovement Instance;
@@ -53,6 +55,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         rb.freezeRotation = true;
         ResetJump();
         playerDied = false;
+        healthBar.SetMaxHealth(playerHealth);
     }
     
     void Update()
@@ -140,10 +143,13 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     public void Damage(float damage)
     {
         playerHealth -= damage;
+        healthBar.SetHealth(playerHealth);
         AudioManager.Instance.PlaySFX(hurtSoundEffect);
         if(playerHealth <= 0) {
             NotifyPlayerDeath();
-            Destroy(this.gameObject);
+            PauseMenuScript.Instance.DeathScreen();
+            //Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }

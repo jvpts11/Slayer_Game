@@ -8,20 +8,32 @@ public class PauseMenuScript : MonoBehaviour
     [Header("Menus")]
     public GameObject pauseMenu;
     public GameObject resumeMenu;
+    public GameObject deathMenu;
 
     [Header("PauseKey")]
     public KeyCode pauseKey;
 
     public static bool isPaused;
 
+    public static PauseMenuScript Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(this);
+        else
+            Instance = this;
+    }
+
     private void Start()
     {
         pauseMenu.SetActive(false);
+        deathMenu.SetActive(false);
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(pauseKey))
+        if(Input.GetKeyDown(pauseKey) && !deathMenu.activeSelf)
         {
             if(isPaused)
             {
@@ -52,5 +64,15 @@ public class PauseMenuScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         isPaused = false;
+    }
+
+    public void DeathScreen()
+    {
+        deathMenu.SetActive(true);
+        pauseMenu.SetActive(false);
+        resumeMenu.SetActive(false);
+        Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 }

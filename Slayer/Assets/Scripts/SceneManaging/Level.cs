@@ -13,9 +13,14 @@ public class Level : MonoBehaviour
     public float currentTime = 0f;
 
     public KeyCode startLevelKey;
+    public bool playerDied;
+
+    public Transform entryPortal;
+    public Transform outPortal;
 
     [HideInInspector]
     public bool gameStarted;
+
 
     /*
      * 1 - o jogador entra no nível e pode andar pelo nível antes de começar o nível
@@ -29,6 +34,14 @@ public class Level : MonoBehaviour
      * 5 - se o jogador vence ele avança para o nivel seguinte
      * 
      */
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+            Destroy(this);
+        else
+            Instance = this;
+    }
 
     private void Start()
     {
@@ -47,13 +60,28 @@ public class Level : MonoBehaviour
 
         if(!PlayerMovement.Instance.playerDied && Input.GetKeyDown(startLevelKey) && !gameStarted)
         {
+            entryPortal.gameObject.SetActive(false);
             StartTimer();
         }
         
         if(gameStarted)
         {
             currentTime -= Time.deltaTime;
+            if(currentTime <= startingTime )
+            {
+                OnGameEnd();
+            }
         }
+
+        if (PlayerMovement.Instance.playerDied == true)
+        {
+            gameStarted = false;
+        }
+    }
+
+    void OnGameEnd()
+    {
+        
     }
 
     private void StartTimer()
