@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class Level : MonoBehaviour
 
     float startingTime = 90f;
     public static float currentTime = 0f;
+
+    public KeyCode startLevelKey;
+
+    [HideInInspector]
+    public bool gameStarted;
 
     /*
      * 1 - o jogador entra no nível e pode andar pelo nível antes de começar o nível
@@ -24,8 +30,24 @@ public class Level : MonoBehaviour
      * 
      */
 
+    private void Start()
+    {
+        currentTime = startingTime;
+    }
+
     private void Update()
     {
-        
+        if (Input.GetKey(startLevelKey))
+        {
+            if(PlayerMovement.instance.playerDied != true)
+            {
+                gameStarted = true;
+                currentTime -= Time.deltaTime;
+            }
+            else
+            {
+                currentTime = startingTime;
+            }
+        }
     }
 }

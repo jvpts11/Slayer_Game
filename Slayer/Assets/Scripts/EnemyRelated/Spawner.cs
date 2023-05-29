@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour , IDoNothing
 {
 
     [SerializeField] public GameObject enemyToSpawn;
@@ -65,6 +65,11 @@ public class Spawner : MonoBehaviour
         GameObject enemy = Instantiate(enemyToSpawn, spawnerPos.transform.position, Quaternion.identity);
         enemy.GetComponentInChildren<Enemy>().InitializeEnemy(wave.enemyHealth, this);
         currentEnemies++;
+        
+    }
+
+    public void DoNothing()
+    {
         
     }
 }

@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     [HideInInspector]
     public bool isGrounded;
     bool readyToJump;
+    public bool playerDied;
 
     float horizontal;
     float vertical;
@@ -35,12 +36,15 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     Vector3 dir;
 
     Rigidbody rb;
+
+    public static PlayerMovement instance;
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         ResetJump();
+        playerDied = false;
     }
 
     
@@ -121,11 +125,17 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         readyToJump = true;
     }
 
+    public void NotifyPlayerDeath()
+    {
+        playerDied = true;
+    }
+
     public void Damage(float damage)
     {
         playerHealth -= damage;
         AudioManager.Instance.PlaySFX(hurtSoundEffect);
         if(playerHealth <= 0) {
+            NotifyPlayerDeath();
             Destroy(this.gameObject);
         }
     }
