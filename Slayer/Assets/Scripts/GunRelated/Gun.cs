@@ -20,10 +20,12 @@ public class Gun : MonoBehaviour
     public TextMeshProUGUI gunName;
 
     public static Gun Instance;
+    public bool thisGunIsReloading;
 
     private void Awake()
     {
         gunData.currentAmmo = gunData.magSize;
+        Instance = this;
     }
 
     private void OnEnable()
@@ -99,8 +101,10 @@ public class Gun : MonoBehaviour
     private IEnumerator Reload()
     {
         gunData.isRealoading = true;
+        thisGunIsReloading = true;
         yield return new WaitForSeconds(gunData.reloadTime);
         gunData.currentAmmo = gunData.magSize;
+        thisGunIsReloading = false;
         gunData.isRealoading = false;
     }
 

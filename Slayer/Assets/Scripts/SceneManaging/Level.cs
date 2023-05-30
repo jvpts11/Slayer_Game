@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,8 @@ public class Level : MonoBehaviour
 
     public Transform entryPortal;
     public Transform outPortal;
+
+    public TextMeshProUGUI timerText;
 
     [HideInInspector]
     public bool gameStarted;
@@ -67,7 +70,9 @@ public class Level : MonoBehaviour
         if(gameStarted)
         {
             currentTime -= Time.deltaTime;
-            if(currentTime <= startingTime )
+            int timeInInt = (int) currentTime;
+            timerText.SetText(timeInInt.ToString());
+            if (currentTime <= startingTime )
             {
                 OnGameEnd();
             }

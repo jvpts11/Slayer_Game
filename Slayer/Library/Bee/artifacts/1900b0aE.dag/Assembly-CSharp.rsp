@@ -372,6 +372,7 @@
 "Assets/Scripts/MenuScripts/MenuScript.cs"
 "Assets/Scripts/MenuScripts/PauseMenuScript.cs"
 "Assets/Scripts/MenuScripts/RandomStringsScript.cs"
+"Assets/Scripts/MenuScripts/TextAnimationController.cs"
 "Assets/Scripts/PlayerBasics/MoveCamera.cs"
 "Assets/Scripts/PlayerBasics/PlayerCam.cs"
 "Assets/Scripts/PlayerBasics/PlayerMovement.cs"
